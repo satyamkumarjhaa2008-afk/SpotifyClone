@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify - Web Player: Music for everyone</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <style>
+    /* 🔹 Full-page Loader */
+    .loadingOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      font-family: "Poppins", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      display: none;
+    }
+
+    .loaderSpinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid #fff;
+      border-top-color: #1db954;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* 🔹 Playbar Loader
+    .playbar {
+      position: fixed;
+      overflow: hidden;
+    }
+
+    .playbarLoading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #1db954, #1ed760);
+      animation: barFill 2s linear infinite;
+      width: 0%;
+      z-index: 2;
+      opacity: 0.8;
+      border-radius: 4px;
+    }
+
+    @keyframes barFill {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    } */
+  </style>
+  
+
+</head>
+<body>
+  <div class="loadingOverlay">
+    <div class="loaderSpinner"></div>
+    <div class="loadingText">Fetching Songs...</div>
+  </div>
+
+<div class="mainbox">
+    <div class="navbar top">
+        <div class="topleft">
+<img id="logo" src="/icons/logo.svg" alt="Spotify">
+
+<div class="nexttologo">
+<div class="home HS">
+   <button class="HSbtn">
+    <img src="/icons/home.svg" width="25px" height="60%" alt="">
+   </button> 
+</div>
+<div class="search  HS">
+    <button id="satyam" class="noshrink HSbtn">
+        <img width="25px" height="60%" src="/icons/search.svg" alt="">
+    </button>
+    <input class="noshrink bar" placeholder="What do you want to play?" type="search">
+    <div class="dandi">|
+     </div>
+     <a class="noshrink" id="discover" href="">
+        <img src="/icons/discover.svg" alt="">
+     </a>
+</div>
+   
+</div>
+</div>
+<div class="topright">
+<div class="PSD">
+    <a href="https://www.spotify.com/in-en/premium/" class="threebuttons expand1">Premium</a>
+    <a target="_blank" href="https://support.spotify.com/in-en/" class="threebuttons expand1">Support</a>
+    <a target="_blank" href="https://www.spotify.com/in-en/download/windows/" class="threebuttons expand1">Download</a>
+</div>
+<div class="dandi">|</div>
+<div style="background-color: black;" class="bandi"  >
+    <button   id="install">
+        <img  height="50%" style="background-color: black; margin-left: 9px;" src="/icons/install.svg" alt="">
+        <span >Install App</span>
+    </button> 
+  
+</div>
+<div  id="signup">
+    <a href="https://www.spotify.com/in-en/signup?forward_url=https%3A%2F%2Fopen.spotify.com%2F" class="Sign">Sign Up</a >
+</div>
+<div  id="login">
+    <a id="log" href="https://accounts.spotify.com/en-GB/login?continue=https%3A%2F%2Fopen.spotify.com%2Fsearch" >Log in</a>
+</div>
+</div>
+    </div>
+
+
+
+    <div class="maincont">
+<div class="leftcont">
+    <div class="library">
+        <img height="80%" src="/icons/library-book-svgrepo-com.svg" alt="Library">
+        <h2>Your Library</h2>
+    </div>
+    <div class="songlist">
+
+
+    <!-- <div class="songcards">
+<div class="musiclogo">
+<img width="70%" height="70%" src="musical-note-music-svgrepo-com.svg" alt="">
+
+</div>
+<div  class="musicdetails"  ></div>
+<div class="playnow">
+    <video height="80%" width="60%" src="https://cdn.pixabay.com/video/2023/02/10/150110-797862889_large.mp4"></video>
+</div>
+<div class="playbutton">
+    <img width="60%" height="60%" src="play-button-svgrepo-com.svg" alt="">
+</div>
+
+    </div> -->
+
+    
+
+</div>
+</div>
+<div class="rightcont">
+<div class="artists">
+<div class="title" >Arijit Singh</div>
+<div class="artistsongs">
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://www.allindiandjsdrive.com/wp-content/uploads/2022/12/Agar-Tum-Saath-Ho-LoFi-Remix-Shiven-768x768.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div> 
+
+<div class="songinfo">
+<span  class="musicname" >Agar Tum Saath Ho</span>
+<span class="artistname" >Arijit Singh</span>
+</div>
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Apna Bana Le</span>
+<span class="artistname" >Arijit Singh</span>
+</div>
+
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.pinimg.com/736x/56/40/22/564022d7cc1cf4f2c9a28cb792188ae4.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Khairiyat</span>
+<span class="artistname" >Arijit Singh</span>
+</div>
+
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.pinimg.com/originals/ff/82/2d/ff822dcbb11d85756cc1f5cb8528478b.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Sanam Re</span>
+<span class="artistname" >Arijit Singh</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="http://c.saavncdn.com/451/Airlift-Hindi-2015-500x500.jpg " alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Soch Na Sake</span>
+<span class="artistname" >Arijit Singh</span>
+</div>
+
+
+    </div>
+</div>
+
+</div>
+
+<div class="artists">
+<div class="title" >Karan Aujla</div>
+<div class="artistsongs">
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i1.sndcdn.com/artworks-6DwmXhJzVCC1X0ih-vQm01A-t1080x1080.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Aaye Haaye</span>
+<span class="artistname" >Karan Aujla</span>
+</div>
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/740/Admirin-You-feat-Preston-Pablo-Punjabi-2023-20230730053753-500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Admirin You</span>
+<span class="artistname" >Karan Aujla</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://images.genius.com/fe9fb4c565f1636fe82dfafc3d44da6a.720x900x1.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >G.O.A.T.</span>
+<span class="artistname" >Karan Aujla</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/178/Wavy-Punjabi-2024-20241115004315-500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Wavy</span>
+<span class="artistname" >Karan Aujla</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i1.sndcdn.com/artworks-YVhML2livAkkBUmG-w85thQ-t500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Winning Speech</span>
+<span class="artistname" >Karan Aujla</span>
+</div>
+
+
+    </div>
+</div>
+
+<div class="artists">
+<div class="title" >Badshah</div>
+<div class="artistsongs">
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.pinimg.com/originals/38/fe/94/38fe9435a36a069f6b12c9fbd94cdf54.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+    
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Genda Phool</span>
+<span class="artistname" >Badshah</span>
+</div>
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="http://downloads4djs.co.in/wp-content/uploads/2018/07/lets-nacho-msk.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+    
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Lets Nacho</span>
+<span class="artistname" >Badshah</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/559/Mercy-Hindi-2017-500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+    
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Mercy</span>
+<span class="artistname" >Badshah</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://files.prokerala.com/images/1200/jacqueline-fernandez-drops-paani-paani-song.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+    
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Paani Paani</span>
+<span class="artistname" >Badshah</span>
+</div>
+
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/105/Tauba-feat-Badshah-Hindi-2022-20220624005715-500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+    
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Tauba</span>
+<span class="artistname" >Badshah</span>
+</div>
+
+
+    </div>
+</div>
+
+<div class="artists">
+<div class="title" >Yo Yo Honey Singh</div>
+<div class="artistsongs">
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="http://3.bp.blogspot.com/-B2N43Gf22Vk/UswpcAgc_QI/AAAAAAAADyw/5k6a9aVLlsM/s1600/honey+singh+blue+eyes+(www.allkaraokehere.blogspot.com).jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Blue Eyes</span>
+<span class="artistname" >Yo Yo Honey Singh</span>
+</div>
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="http://4.bp.blogspot.com/-WAe_ImbwfKs/UHmpeAuAMlI/AAAAAAAAAzk/e-zzmC0aC_4/s1600/11963_BROWN+RANG.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Brown Rang</span>
+<span class="artistname" >Yo Yo Honey Singh</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/012/Yo-Yo-Honey-Singh-Hindi-2024-20240813121003-500x500.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Love Dose</span>
+<span class="artistname" >Yo Yo Honey Singh</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://mixjio.com/siteuploads/thumb/sft76/37721_6.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Maniac</span>
+<span class="artistname" >Yo Yo Honey Singh</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://images.genius.com/88acf10bc6a590d85db9d902074f2315.1000x1000x1.webp" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Millionaire</span>
+<span class="artistname" >Yo Yo Honey Singh</span>
+</div>
+
+    </div>
+</div>
+
+<div class="artists exception">
+<div class="title" >Shubh</div>
+<div class="artistsongs">
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.pinimg.com/originals/26/31/4b/26314b9eb94c85a2ad300445ed15f383.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Bandana</span>
+<span class="artistname" >Shubh</span>
+</div>
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.ytimg.com/vi/uZCDw2tPdr0/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgXyhKMA8=&rs=AOn4CLAFnRrtCDUQSiuKiTEOluak6kvfxw" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Cheques</span>
+<span class="artistname" >Shubh</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.ytimg.com/vi/0pWsCiBvLOk/maxresdefault.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >One Love</span>
+<span class="artistname" >Shubh</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.ytimg.com/vi/u4E0Hf2kR9g/maxresdefault.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Supreme</span>
+<span class="artistname" >Shubh</span>
+</div>
+
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.ytimg.com/vi/IAvw60x0Kn4/maxresdefault.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >You And Me</span>
+<span class="artistname" >Shubh</span>
+</div>
+
+    </div>
+</div>
+
+<div class="artists">
+<div class="title" >Popular Songs</div>
+<div class="artistsongs">
+     <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://s1.dmcdn.net/v/ApHB51Zk_oEXOyu1K/x720" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Afghan Jalebi</span>
+<span class="artistname" >Pritam</span>
+</div>
+
+    </div>
+       <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/12/bb/14/12bb1406-e716-9694-587e-b167448c672b/198880970114.jpg/1200x1200bf-60.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >PASSO BEM SOLTO (Slowed)</span>
+<span class="artistname" >ATLXS</span>
+</div>
+
+    </div>
+        <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://a10.gaanacdn.com/gn_img/albums/0wrb4kNWLg/rb4kVqvvWL/size_m.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Chura Ke Dil Mera</span>
+<span class="artistname" >Various Artist</span>
+</div>
+
+    </div>
+       <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="http://www.yugmarg.com/images/news/full15385.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Hua Main (Animal)</span>
+<span class="artistname" >Various Artists</span>
+</div>
+
+    </div>
+        <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9b/76/c9/9b76c9c8-ddc9-34b7-647a-f6f7f0c33f9e/036885210173.png/800x800cc.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Nunca Muda</span>
+<span class="artistname" >Phonk</span>
+</div>
+
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://c.saavncdn.com/206/PELIGROSA-English-2024-20240710232408-150x150.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Peligrosa</span>
+<span class="artistname" >FloyyMenor</span>
+</div>
+
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://resources.tidal.com/images/492104a6/f399/41d4/a4f6/4bbf0915e386/640x640.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Ride Or Die Pt. 2</span>
+<span class="artistname" >Various Artist</span>
+</div>
+
+    </div>
+    <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://lh3.googleusercontent.com/_XLSqQCOhu3eX7ETLtxUOOnYGgqSWyzIwPMfIlnP0CEXBDETuytwMxmdUbtCDAfWb3ImxU3By9Rxks0" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Saudebaazi</span>
+<span class="artistname" >Various Artist</span>
+</div>
+    </div>
+     <div class="songcar">
+<div class="songphoto" >
+    <img width="100%" height="100%" src="https://i.ytimg.com/vi/zXJvh5s_hhc/maxresdefault.jpg" alt="">
+    <div class="spotifyplay">
+        <img height="60%" width="60%" src="/icons/spotplay.svg" alt="">
+    </div>
+</div>
+
+<div class="songinfo">
+<span  class="musicname" >Vidrado Em Voce</span>
+<span class="artistname" >Various Artist</span>
+</div>
+
+    </div>
+
+</div> 
+
+
+
+
+
+
+<div class="playbar">
+<div class="playbartop">
+<div class="info"></div>
+<div class="btns">
+<img id="previous" height="60%" width="40px" src="/icons/play-previous-svgrepo-com.svg" alt="">
+<img id="playbaby" height="62%" width="40px" src="/icons/pause-button-svgrepo-com.svg" alt="">
+<img id="next" height="60%" width="40px" src="/icons/play-next-svgrepo-com.svg" alt="">
+</div>
+<div class="time">
+
+
+</div>
+
+</div>
+
+<div class="playbarbottom">
+<div class="seekbar">
+<div class="goli">
+
+ 
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</div
+</div>
+
+    <script src="script.js"></script>
+  </div>
+</body>
+</html>
